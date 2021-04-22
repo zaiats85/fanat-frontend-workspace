@@ -3,5 +3,126 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "fanat-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "styl"
+        }
+      },
+      "root": "projects/fanat-frontend",
+      "sourceRoot": "projects/fanat-frontend/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/fanat-frontend",
+            "index": "projects/fanat-frontend/src/index.html",
+            "main": "projects/fanat-frontend/src/main.ts",
+            "polyfills": "projects/fanat-frontend/src/polyfills.ts",
+            "tsConfig": "projects/fanat-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/fanat-frontend/src/favicon.ico",
+              "projects/fanat-frontend/src/assets"
+            ],
+            "styles": [
+              "projects/fanat-frontend/src/styles.styl"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/fanat-frontend/src/environments/environment.ts",
+                  "with": "projects/fanat-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "fanat-frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "fanat-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "fanat-frontend:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/fanat-frontend/src/test.ts",
+            "polyfills": "projects/fanat-frontend/src/polyfills.ts",
+            "tsConfig": "projects/fanat-frontend/tsconfig.spec.json",
+            "karmaConfig": "projects/fanat-frontend/karma.conf.js",
+            "assets": [
+              "projects/fanat-frontend/src/favicon.ico",
+              "projects/fanat-frontend/src/assets"
+            ],
+            "styles": [
+              "projects/fanat-frontend/src/styles.styl"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/fanat-frontend/tsconfig.app.json",
+              "projects/fanat-frontend/tsconfig.spec.json",
+              "projects/fanat-frontend/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/fanat-frontend/e2e/protractor.conf.js",
+            "devServerTarget": "fanat-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fanat-frontend:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "fanat-frontend"
 }
