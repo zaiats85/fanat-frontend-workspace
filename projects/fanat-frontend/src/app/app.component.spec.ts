@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { DeveloperModule } from './developer/developer.module';
+import { DeveloperComponent } from './developer/developer.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        DeveloperModule
       ],
       declarations: [
         AppComponent
@@ -32,4 +35,12 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('fanat-frontend app is running!');
   });
+
+  it('show render app-developer', () => {
+    const fixture = TestBed.createComponent(DeveloperComponent);
+    const appDeveloper = fixture.componentInstance;
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.developer-tools h1').textContent).toContain('Developer Tools');
+  });
+
 });

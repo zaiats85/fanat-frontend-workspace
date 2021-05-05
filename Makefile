@@ -27,8 +27,20 @@ all/build: $(foreach p, $(PROJECTS), $(p)/build)
 .PHONY: all/test
 all/test: $(foreach p, $(PROJECTS), $(p)/test)
 
+.PHONY: all/e2e
+all/e2e: $(foreach p, $(PROJECTS), $(p)/e2e)
+
 .PHONY: all/lint
 all/lint: $(foreach p, $(PROJECTS), $(p)/lint)
 
 serve:
 	@$(NODE_PATH) --max-old-space-size=$(MAX_MEMORY_SIZE) $(ANGULAR_CLI_PATH) serve $(FRONTEND_PROJECT)
+
+%/test:
+	@$(NODE_PATH) --max-old-space-size=$(MAX_MEMORY_SIZE) $(ANGULAR_CLI_PATH) test $(@D)
+
+%/e2e:
+	@$(NODE_PATH) --max-old-space-size=$(MAX_MEMORY_SIZE) $(ANGULAR_CLI_PATH) e2e $(@D)
+
+%/lint:
+	@$(NODE_PATH) --max-old-space-size=$(MAX_MEMORY_SIZE) $(ANGULAR_CLI_PATH) lint $(@D)
